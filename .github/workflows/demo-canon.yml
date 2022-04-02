@@ -1,0 +1,33 @@
+name: 'Publish canon demo'
+
+on:
+  push:
+    branches: [canon]
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  pages: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - name: Install wasm-pack
+      run: cargo install wasm-pack
+    - name: Run wasm-pack
+      run: |
+        cd auto-knuffel-demo
+        wasm-pack build --target web
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: ${{ github.ref == 'refs/heads/canon' }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./auto-knuffel-demo
+        force_orphan: true
