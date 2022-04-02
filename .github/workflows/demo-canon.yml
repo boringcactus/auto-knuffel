@@ -1,6 +1,7 @@
 name: 'Publish canon demo'
 
 on:
+  workflow_dispatch:
   push:
     branches: [canon]
 
@@ -24,10 +25,14 @@ jobs:
       run: |
         cd auto-knuffel-demo
         wasm-pack build --target web
+        mkdir dist
+        cp index.html dist
+        mkdir dist/pkg
+        cp pkg/*.js pkg/*.wasm dist/pkg
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       if: ${{ github.ref == 'refs/heads/canon' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./auto-knuffel-demo
+        publish_dir: ./auto-knuffel-demo/dist
         force_orphan: true
