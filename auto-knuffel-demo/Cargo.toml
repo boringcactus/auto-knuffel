@@ -1,0 +1,23 @@
+[package]
+name = "auto-knuffel-demo"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+auto-knuffel-impl = { path = "../auto-knuffel-impl" }
+kdl-schema = "0.1.0"
+prettyplease = "0.1.9"
+syn = "1.0"
+wasm-bindgen = "0.2.79"
+web-sys = { version = "0.3.56", features = [
+    'Document',
+    'Element',
+    'HtmlElement',
+    'Node',
+    'Window',
+] }

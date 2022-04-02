@@ -1,0 +1,20 @@
+[package]
+name = "auto-knuffel"
+version = "0.0.0"
+authors = ["Melody Horn <melody@boringcactus.com>"]
+description = "A `cargo generate` template for quick-starting a procedural macro crate"
+keywords = ["template", "proc_macro", "procmacro"]
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+auto-knuffel-impl = { path = "./auto-knuffel-impl" }
+kdl-schema = "0.1.0"
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = "1.0"
+
+[workspace]
+members = ['auto-knuffel-demo']
